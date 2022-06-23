@@ -10,3 +10,9 @@ cd src
 ```
 
 ### Step 3: Caluculate confluency
+
+Execute the following command:
+
+```
+python conflu.py --name [filename]
+```
