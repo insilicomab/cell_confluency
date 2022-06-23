@@ -45,7 +45,7 @@ def run(name):
     confluency = int(white_area / whole_area * 100)
     
     # show confluency
-    print(f'Colony Index: {name} = {confluency} %')
+    print(f'Cell Confluency: {name} = {confluency} %')
     
     # visualization
     fig, ax = plt.subplots(1, 3, figsize=(20, 10))
