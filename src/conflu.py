@@ -10,7 +10,7 @@ import glob
 
 def run(path):
     # read the image
-    img = cv2.imread(f'../data/input/{path}.jpg')
+    img = cv2.imread(f'../data/input/{path}')
 
     # BGR to RGB
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
