@@ -16,3 +16,8 @@ Execute the following command:
 ```
 python conflu.py --name [filename]
 ```
+
+e.g.
+```
+python conflu.py --name SCR_5300_1.jpg
+```
