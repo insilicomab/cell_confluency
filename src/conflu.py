@@ -8,9 +8,9 @@ import argparse
 import glob
 
 
-def run(path):
+def run(name):
     # read the image
-    img = cv2.imread(f'../data/input/{path}')
+    img = cv2.imread(f'../data/input/{name}')
 
     # BGR to RGB
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -45,14 +45,14 @@ def run(path):
     confluency = int(white_area / whole_area * 100)
     
     # show confluency
-    print(f'Colony Index: {path} = {confluency} %')
+    print(f'Colony Index: {name} = {confluency} %')
     
     # visualization
     fig, ax = plt.subplots(1, 3, figsize=(20, 10))
     ax[0].imshow(img)
     ax[0].set_xticks([])
     ax[0].set_yticks([])
-    ax[0].text(1, 0.1, path, verticalalignment='top', color='red', size='x-large')
+    ax[0].text(1, 0.1, name, verticalalignment='top', color='red', size='x-large')
     ax[1].imshow(th_dilation, cmap='gray')
     ax[1].set_xticks([])
     ax[1].set_yticks([])
@@ -66,8 +66,8 @@ def run(path):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     
-    parser.add_argument('--path', type=str)
+    parser.add_argument('--name', type=str)
     
     args = parser.parse_args()
     
-    run(path=args.path)
+    run(name=args.name)
