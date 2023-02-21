@@ -1,16 +1,14 @@
 # import packages
 import cv2
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
 import argparse
-import glob
 
 
-def run(name):
+def run(args):
     # read the image
-    img = cv2.imread(f'../data/input/{name}')
+    img = cv2.imread(f'../data/input/{args.name}')
 
     # BGR to RGB
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
@@ -19,13 +17,13 @@ def run(name):
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     
     # binarization using Otsu's method
-    ret,th = cv2.threshold(img_gray,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
+    _, th = cv2.threshold(img_gray, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
     
     # configure the kernel
-    kernel = np.ones((5,5),np.uint8)
+    kernel = np.ones((5, 5), np.uint8)
     
     # morphological transformation(Dilation)
-    th_dilation = cv2.dilate(th,kernel,iterations = 1)
+    th_dilation = cv2.dilate(th, kernel, iterations=1)
     
     # contour extraction
     contours, hierarchy = cv2.findContours(th_dilation,
@@ -45,14 +43,14 @@ def run(name):
     confluency = int(white_area / whole_area * 100)
     
     # show confluency
-    print(f'Cell Confluency: {name} = {confluency} %')
+    print(f'Cell Confluency: {args.name} = {confluency} %')
     
     # visualization
     fig, ax = plt.subplots(1, 3, figsize=(20, 10))
     ax[0].imshow(img)
     ax[0].set_xticks([])
     ax[0].set_yticks([])
-    ax[0].text(1, 0.1, name, verticalalignment='top', color='red', size='x-large')
+    ax[0].text(1, 0.1, args.name, verticalalignment='top', color='red', size='x-large')
     ax[1].imshow(th_dilation, cmap='gray')
     ax[1].set_xticks([])
     ax[1].set_yticks([])
@@ -60,14 +58,12 @@ def run(name):
     ax[2].text(1, 0.1, f'Cell Confluency: {confluency}', verticalalignment='top', color='red', size='x-large')
     ax[2].set_xticks([])
     ax[2].set_yticks([])
-    plt.show()
+    fig.savefig('../output/result.png')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    
     parser.add_argument('--name', type=str)
-    
     args = parser.parse_args()
     
-    run(name=args.name)
+    run(args)
