@@ -26,7 +26,7 @@ def run(args):
     th_dilation = cv2.dilate(th, kernel, iterations=1)
     
     # contour extraction
-    contours, hierarchy = cv2.findContours(th_dilation,
+    contours, _ = cv2.findContours(th_dilation,
                                            cv2.RETR_LIST,
                                            cv2.CHAIN_APPROX_NONE)
     
