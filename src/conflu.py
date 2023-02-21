@@ -26,9 +26,7 @@ def run(args):
     th_dilation = cv2.dilate(th, kernel, iterations=1)
     
     # contour extraction
-    contours, _ = cv2.findContours(th_dilation,
-                                           cv2.RETR_LIST,
-                                           cv2.CHAIN_APPROX_NONE)
+    contours, _ = cv2.findContours(th_dilation, cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
     
     # draw the contours on the source image
     img_contour = cv2.drawContours(img.copy(), contours, -1, (0, 255, 0), 2)
